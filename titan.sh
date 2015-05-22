@@ -39,8 +39,7 @@ done
 
 
 if [ -z "$JPS" ]; then
-    echo "jps command not found.  Put the JDK's jps binary on the command path."
- >&2
+    echo "jps command not found.  Put the JDK's jps binary on the command path." >&2
     exit 1
 fi
 
@@ -133,14 +132,11 @@ wait_for_shutdown() {
 start() {
     echo "Forking Titan + Rexster..."
     if [ -n "$VERBOSE" ]; then
-        "$BIN"/rexster.sh -s -wr public -c ../conf/rexster-${REXSTER_CONFIG_TAG}
-.xml &
+        "$BIN"/rexster.sh -s -wr public -c ../conf/rexster-${REXSTER_CONFIG_TAG}.xml &
     else
-        "$BIN"/rexster.sh -s -wr public -c ../conf/rexster-${REXSTER_CONFIG_TAG}
-.xml >/dev/null 2>&1 &
+        "$BIN"/rexster.sh -s -wr public -c ../conf/rexster-${REXSTER_CONFIG_TAG}.xml >/dev/null 2>&1 &
     fi
-    wait_for_startup 'Titan + Rexster' $REXSTER_IP $REXSTER_PORT $REXSTER_STARTU
-P_TIMEOUT_S || {
+    wait_for_startup 'Titan + Rexster' $REXSTER_IP $REXSTER_PORT $REXSTER_STARTUP_TIMEOUT_S || {
         echo "See $BIN/../log/rexstitan.log for Rexster log output."  >&2
         return 1
     }
@@ -151,14 +147,11 @@ P_TIMEOUT_S || {
 
 stop() {
     kill_class        'Titan + Rexster' com.tinkerpop.rexster.Application
-    wait_for_shutdown 'Titan + Rexster' com.tinkerpop.rexster.Application $REXST
-ER_SHUTDOWN_TIMEOUT_S
+    wait_for_shutdown 'Titan + Rexster' com.tinkerpop.rexster.Application $REXSTER_SHUTDOWN_TIMEOUT_S
     kill_class        Elasticsearch org.elasticsearch.bootstrap.Elasticsearch
-    wait_for_shutdown Elasticsearch org.elasticsearch.bootstrap.Elasticsearch $E
-LASTICSEARCH_SHUTDOWN_TIMEOUT_S
+    wait_for_shutdown Elasticsearch org.elasticsearch.bootstrap.Elasticsearch $ELASTICSEARCH_SHUTDOWN_TIMEOUT_S
     kill_class        Cassandra org.apache.cassandra.service.CassandraDaemon
-    wait_for_shutdown Cassandra org.apache.cassandra.service.CassandraDaemon $CA
-SSANDRA_SHUTDOWN_TIMEOUT_S
+    wait_for_shutdown Cassandra org.apache.cassandra.service.CassandraDaemon $CASSANDRA_SHUTDOWN_TIMEOUT_S
 }
 
 
@@ -196,12 +189,10 @@ status() {
 
 
 clean() {
-    echo -n "Are you sure you want to delete all stored data and logs? [y/N] " >
-&2
+    echo -n "Are you sure you want to delete all stored data and logs? [y/N] " >&2
     read response
     if [ "$response" != "y" -a "$response" != "Y" ]; then
-        echo "Response \"$response\" did not equal \"y\" or \"Y\".  Canceling cl
-ean operation." >&2
+        echo "Response \"$response\" did not equal \"y\" or \"Y\".  Canceling clean operation." >&2
         return 0
     fi
 
