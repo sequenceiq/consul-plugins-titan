@@ -1,6 +1,6 @@
 : ${LOGFILE:=/tmp/install_titan.log}
 : ${DEBUG:=1}
-: ${TITAN_INSTALL_DIR:=/titan_install}
+: ${TITAN_INSTALL_DIR:=titan_install}
 
 
 main(){
@@ -24,9 +24,9 @@ main(){
 
   local host_name_for_titan=$(hostname)
   echo $host_name_for_titan
-  sed -e s/titan_storage_hostname/$host_name_for_titan/g titan-hbase.properties > titan-hbase.properties
-  sed -e s/titan_storage_hostname/$host_name_for_titan/g titan.sh > titan.sh
-  sed -e s/titan_storage_hostname/$host_name_for_titan/g rexster-hbase.xml > rexster-hbase.xml
+  sed -i s/titan_storage_hostname/$host_name_for_titan/g titan-hbase.properties titan-hbase.properties
+  sed -i s/titan_storage_hostname/$host_name_for_titan/g titan.sh titan.sh
+  sed -i s/titan_storage_hostname/$host_name_for_titan/g rexster-hbase.xml rexster-hbase.xml
 
 
 }
