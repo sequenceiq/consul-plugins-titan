@@ -22,7 +22,7 @@ main(){
   debug "Getting rexster-hbase.xml file"
   curl -O https://raw.githubusercontent.com/sequenceiq/consul-plugins-titan/master/rexster-hbase.xml
 
-  local host_name_for_titan=$(hostname)
+  local host_name_for_titan=$(hostname -f)
   echo $host_name_for_titan
   sed -i s/titan_storage_hostname/$host_name_for_titan/g titan-hbase.properties titan-hbase.properties
   sed -i s/titan_storage_hostname/$host_name_for_titan/g titan.sh titan.sh
