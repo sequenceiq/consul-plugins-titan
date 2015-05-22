@@ -28,7 +28,9 @@ main(){
   sed -i s/titan_storage_hostname/$host_name_for_titan/g titan.sh titan.sh
   sed -i s/titan_storage_hostname/$host_name_for_titan/g rexster-hbase.xml rexster-hbase.xml
 
-
+  mv titan.sh titan/bin/titan.sh && chmod +x titan/bin/titan.sh
+  mv titan-hbase.properties titan/conf/titan-hbase.properties
+  mv rexster-hbase.xml titan/conf/rexster-hbase.xml
 }
 
 debug(){
