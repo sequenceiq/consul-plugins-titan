@@ -32,6 +32,7 @@ main(){
   mv titan-hbase.properties titan/conf/titan-hbase.properties
   mv rexster-hbase.xml titan/conf/rexster-hbase.xml
   cp /usr/hdp/current/hbase-client/conf/hbase-site.xml $TITAN_INSTALL_DIR/titan/conf/
+  titan/bin/titan.sh start
 }
 
 debug(){
