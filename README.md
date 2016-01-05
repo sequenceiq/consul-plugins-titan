@@ -1,6 +1,6 @@
 # consul-plugins-titan
 
-Recipes are not yet available using the Cloudbreak UI, thus if you’d like to try this Titan plugin, you should use the [Cloudbreak Shell](https://github.com/sequenceiq/cloudbreak-shell).
+Recipes are available using the Cloudbreak UI, or you should use the [Cloudbreak Shell](https://github.com/sequenceiq/cloudbreak-shell).
 
 Clone the project from GitHub.
 
